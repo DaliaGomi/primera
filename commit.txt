@@ -1,0 +1,17 @@
+commit d6a816863cc816e11788a2a8c2558d4c1e1f2f8b
+Author: Dalia <daliaob1402@gmail.com>
+Date:   Tue Jan 3 18:46:02 2017 -0600
+
+    Se modofico el titulo
+
+commit fbde1c1411b606115561a8772bcbcbb12393920f
+Author: Dalia <daliaob1402@gmail.com>
+Date:   Tue Jan 3 18:41:11 2017 -0600
+
+    Monificamos la ruta del administrador
+
+commit e238dce8508cad4444f4e81a79a70f85155fa6c0
+Author: Dalia <daliaob1402@gmail.com>
+Date:   Tue Jan 3 18:21:17 2017 -0600
+
+    Nombre y email registrados

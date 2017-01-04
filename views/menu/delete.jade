@@ -1,7 +1,8 @@
 extends ../layout.jade 
 block contenido
 	div(class="col-md-5 center-block no-float top-space text-left")
-			h1 Eliminar #[span= producto.title]
+			h1 Eliminar - #[span= producto.title]
+			p No se ha podido eliminar y quiero llorar. 
 			//Put metodo para actualizar todo el objeto 
 			form(method="post" action="/menu/#{producto.id}?_method=delete" style="margin-top:1.5em;" )
 				div(class="form-group")
