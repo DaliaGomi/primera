@@ -99,7 +99,7 @@ app.post('/admin',function(req,res){
 
 	});
 	}else{
-		res.redirect("/menu");
+		res.redirect("/");
 	}
 });
 
