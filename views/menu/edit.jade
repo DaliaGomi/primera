@@ -1,7 +1,8 @@
 extends ../layout.jade 
 block contenido
 		div(class="col-md-5 center-block no-float top-space text-left")
-			h1 Editar producto
+			h1 Editar producto - #[span= product.title] 
+			p La imagen no ha podido ser editada.
 			//Put metodo para actualizar todo el objeto 
 			form(method="post" action="/menu/#{product.id}?_method=put" style="margin-top:1.5em;" enctype="multipart/form-data")
 				div(class="form-group")
