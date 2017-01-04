@@ -48,6 +48,11 @@ app.get("/",function(req,res){
 	res.render("index");
 });
 
+app.get("/menu",function(req,res){
+     res.redirect("menu/new");
+});
+
+
 app.get('/menu',function(req,res){
 	Product.find(function(error,documento){
 		if(error){console.log(error);}
