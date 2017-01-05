@@ -48,10 +48,6 @@ app.get("/",function(req,res){
 	res.render("index");
 });
 
-app.get("/menu",function(req,res){
-     res.redirect("menu/new");
-});
-
 
 app.get('/menu',function(req,res){
 	Product.find(function(error,documento){
@@ -124,7 +120,7 @@ app.post("/menu",middleware_upload,function(req,res){
 		}
     
     	var product = new Product(data);
-    if(req.file === undefined){
+    if(req.file.hasOwnProperty("image_avatar")){
     	cloudinary.uploader.upload(req.file.path,function(result){
     		product.imageUrl = result.url;
     		product.save(function(err){
@@ -143,7 +139,7 @@ app.post("/menu",middleware_upload,function(req,res){
 	  }
 	}
 	else{
-		res.redirect("/");
+		res.render("menu/new");
 		
 	}
 
