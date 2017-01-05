@@ -73,17 +73,33 @@ app.get("/menu/edit/:id", function(req,res){
 //MODIFICAR Un PRODUCTO "EDITAR"
 
 app.put("/menu/:id",middleware_upload,function(req,res){
+
 	if(req.body.password == app_password){
 			var data = {
 			title: req.body.title,
 			description: req.body.description,
 			pricing:req.body.pricing
 		};
-		Product.update({"_id": req.params.id},data, function(product){
-			res.redirect("/menu");
-		})
 
-	}else{
+    if(req.file.hasOwnProperty("image_avatar")){
+    	cloudinary.uploader.upload(req.file.image_avatar.path,function(result){
+    		product.imageUrl = result.url;
+    		product.save(function(err){
+    			console.log(product);
+    			res.redirect("/menu");
+    		});
+    	});
+
+		
+	 } 
+	 else {
+	 	Product.update({"_id": req.params.id},data, function(product){
+			res.redirect("/menu");
+		});
+		
+	}
+
+	} else{
 		res.redirect("/");
 	}
 
@@ -121,7 +137,7 @@ app.post("/menu",middleware_upload,function(req,res){
     
     	var product = new Product(data);
     if(req.file.hasOwnProperty("image_avatar")){
-    	cloudinary.uploader.upload(req.file.path,function(result){
+    	cloudinary.uploader.upload(req.file.image_avatar.path,function(result){
     		product.imageUrl = result.url;
     		product.save(function(err){
     			console.log(product);
