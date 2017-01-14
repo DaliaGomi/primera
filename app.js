@@ -6,6 +6,7 @@ var multer = require('multer');
 var cloudinary = require('cloudinary');
 var app_password = '12345';
 var method_override = require("method-override");
+var Schema = mongoose.Schema;
 
 
 
@@ -28,14 +29,27 @@ var middleware_upload = uploader.single('image_avatar');
 app.use(method_override("_method"));
 //Definir el schema de nuestros productos
 
-var productSchema = {
+var productSchemaJSON
+ = {
 	title:String,
 	description:String,
 	imageUrl:String,
 	pricing: Number
 };
+// Atributo virtual
+//Set asignar algo al producto
+//get obtener algo del producto
+//Colocar una imagen por default para cuando el usarios no suba una
+var productSchema = new Schema(productSchemaJSON);
+productSchema.virtual("image.url").get(function(){
+	if(this.imageUrl === "" || this.imageUrl === "data.png"){
+		return "data.jpg";
+	}
+	return this.imageUrl
+});
 
 //Modelo encargado de los datos "Consulta a la base de datos"
+
 
 
 var Product = mongoose.model("Product", productSchema);
@@ -82,11 +96,12 @@ app.put("/menu/:id",middleware_upload,function(req,res){
 		};
 
     if(req.file.hasOwnProperty("image_avatar")){
-    	cloudinary.uploader.upload(req.file.image_avatar.path,function(result){
-    		product.imageUrl = result.url;
-    		product.save(function(err){
-    			console.log(product);
+    	cloudinary.uploader.upload(req.file.image_avatar.path,
+    		function(result){
+    			data.imageUrl = result.url;
+    			Product.update({"_id": req.params.id},data, function(product){
     			res.redirect("/menu");
+    		
     		});
     	});
 
@@ -138,7 +153,8 @@ app.post("/menu",middleware_upload,function(req,res){
     	var product = new Product(data);
     if(req.file.hasOwnProperty("image_avatar")){
     	cloudinary.uploader.upload(req.file.image_avatar.path,function(result){
-    		product.imageUrl = result.url;
+    		product.imageUrl = resu
+    		lt.url;
     		product.save(function(err){
     			console.log(product);
     			res.redirect("/menu");
